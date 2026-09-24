@@ -1,0 +1,43 @@
+{
+  "name": "sms-verify-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "手机号短信验证服务：Twilio / Plivo Verify + 人机检测 + 频控 + 管理后台",
+  "cloudflare": {
+    "label": "SMS Verify（手机号短信验证 + 管理后台）",
+    "products": [
+      "Workers",
+      "D1"
+    ],
+    "categories": [
+      "starter"
+    ],
+    "docs_url": "https://github.com/WPKF-CN/cf-sms-verify",
+    "publish": false
+  },
+  "scripts": {
+    "dev": "npm run db:local && wrangler dev",
+    "predeploy": "wrangler d1 migrations apply DB --remote",
+    "deploy": "wrangler deploy",
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "bundle": "node scripts/build-single.mjs",
+    "check": "node scripts/check-config.mjs",
+    "login": "wrangler login",
+    "setup": "node scripts/setup.mjs",
+    "secrets": "node scripts/set-secrets.mjs",
+    "db:create": "wrangler d1 create sms-verify",
+    "db:local": "wrangler d1 migrations apply DB --local",
+    "db:remote": "wrangler d1 migrations apply DB --remote",
+    "hash": "node scripts/hash-password.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.136.1"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260921.1": true
+  },
+  "dependencies": {
+    "libphonenumber-js": "^1.13.13"
+  }
+}
